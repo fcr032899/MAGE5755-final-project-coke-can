@@ -32,9 +32,11 @@ catkin_simple()
 # Executables: uncomment the following and edit arguments to compile new nodes
 # may add more of these lines for more nodes from the same package
 cs_add_executable(command_bundler src/command_bundler.cpp)
+cs_add_executable(acquire_coke_can_client src/acquire_coke_can_client.cpp)
 cs_add_executable(acquire_block_client src/acquire_block_client.cpp)
 cs_add_executable(straddle_block_client src/straddle_block_client.cpp)
 cs_add_executable(example_cart_move_client src/example_cart_move_client.cpp)
+cs_add_executable(dropoff_coke_can_client src/dropoff_coke_can_client.cpp)
 cs_add_executable(dropoff_block_client src/dropoff_block_client.cpp)
 cs_add_executable(coordinator_action_client_tester src/coordinator_action_client_tester.cpp)
 cs_add_executable(open_loop_nav_service src/open_loop_nav_service.cpp)
