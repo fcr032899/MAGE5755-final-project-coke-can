@@ -5,6 +5,8 @@ The following steps can quickly complete the download and compilation process of
 ## 2.1 Install ROS
 you need to download the ROS_noetice version,you can download from here http://wiki.ros.org/kinetic/Installation/Ubuntu
 
+In fact, this depends on your Ubuntu version, and it can also be done in Melodic.
+
 ## 2.1 Git clone necesay packages
 
 Then,Create a ROS environment and download the necessary packages,You can use the following commands:
