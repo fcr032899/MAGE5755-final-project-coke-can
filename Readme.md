@@ -63,7 +63,14 @@ You can watch the full simulation process form :
 
 [youtube video](https://www.youtube.com/watch?v=3I2kVjDQLXQ)
 # 5.FAQ
-When using the baxter robot to grab the coke can, you may encounter the situation where the baxter grabbing width is not enough. You need to change the finger extension from narrow to wide in the right_end_effector.urdf.xacro in the baxter robot.
+
+## 1. Where to insall the baxter simulator ?
+Please git clone  from here:
+```  https://github.com/rojas70/hlearning_ros_external_pkgs_noetic.git ```
+## 2. if the grab finger is to small and how to modify it?
+When using the baxter robot to grab the coke can, you may encounter the situation where the baxter grabbing width is not enough. You need to change the finger extension from narrow to wide in the right_end_effector.urdf.xacro in the baxter robot. As shown :
+![jpg](./images/123.jpg)
+
 
 
 
