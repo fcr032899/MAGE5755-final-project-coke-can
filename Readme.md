@@ -14,7 +14,7 @@ Then,Create a ROS environment and download the necessary packages,You can use th
 mkdir -p $HOME/Coke_ws/src
 git clone https://github.com/rojas70/hlearning_ros_external_pkgs_noetic.git
 git clone https://github.com/rojas70/learning_ros_noetic.git
-git clone https://github.com/fcr032899/MAGE5755-final-project
+git clone https://github.com/fcr032899/MAGE5755-final-project-coke-can.git
  ```
 ## 2.3 Build the workspace
 ```bash
