@@ -1,0 +1,115 @@
+#object_grabber action message
+#pass in an object code and the object's frame (w/rt named frame_id)
+#object_grabber will plan approach, grasp and lift of object
+#returns codes regarding outcome
+
+# Action Codes
+
+# Pre-Grasp
+int32 TEST_CODE                         = 0     # "ping" action server
+int32 MOVE_TO_WAITING_POSE              = 1     # pre-pose motion: defined on param server out of way of sensors
+
+int32 PLAN_MOVE_TO_GRASP_POSE           = 2     # expects (1) current_object_pose, (2) object_ID, (3) grasp_option, (4) approach_option
+                                                # + send separate "grasp" command to gripper
+
+int32 PLAN_MOVE_FINE_TO_GRASP_POSE      = 3     # as above, but finer/slower motion 
+
+### Move Object
+int32 PLAN_MOVE_OBJECT_JSPACE           = 4     # move grasped object to dest in joint-space
+                                                # expects: (i) des_object_pose, (2) object_ID, (3) grasp_option
+
+int32 PLAN_MOVE_OBJECT_CSPACE           = 5     # move grasped object to dest in cart-space
+                                                # expects as above
+
+int32 PLAN_MOVE_FINE_OBJECT_CSPACE      = 6     # as above, but finer/slower motion
+
+### Post-Grasp
+int32 PLAN_WITHDRAW_FROM_OBJECT         = 7     # after grasp released, use strategy to depart object 
+                                                # (1) object_ID, (2) grasp_option, (3) depart_option
+
+int32 PLAN_WITHDRAW_FINE_FROM_OBJECT    = 8     # as above, but finer/slower motion
+
+### Combined actions 
+int32 PLAN_OBJECT_GRASP                 = 9     # combine multiple elements above to acquire an object
+
+int32 CART_MOVE_CURRENT_TO_CART_GOAL    = 10    # plan/execute move to cartesian goal specified in "geometry_msgs/PoseStamped object_frame"
+
+int32 GRAB_OBJECT                       = 101   # plan/execute object grasp & lift
+int32 DROPOFF_OBJECT                    = 102   # plan/execute object placement and arm withdrawal
+int32 STRADDLE_OBJECT                   = 103   # plan/execute part of GRAB_OBJECT: move to grasp pose, then halt
+
+int32 SET_SPEED_FACTOR = 10                     # arg: changes trajectory time-scale: > 1.0 ==> slower
+
+### Strategies:
+int32 DEFAULT_GRASP_STRATEGY            = 0     # executes approach and depart strategies. 
+
+int32 EXECUTE_PLANNED_MOVE = 100                # accept arm-motion plan and enable its execution
+
+### Gripper commands:
+int32 GRIPPER_PREPARE_GRASP_OBJECT      = 20    # Prepare for grasp approach (open fingers)
+
+int32 GRIPPER_GRASP_OBJECT              = 21    # Perform appropriate action to grasp object (assumes gripper in appropriate pose)
+                                                # Client does not need to know what type of gripper is used
+
+int32 GRIPPER_RELEASE_OBJECT            = 22    # Release a grasped object
+                                                # (1) obj ID, (2) Grasp option
+
+int32 GRIPPER_IS_OBJECT_GRASPED         = 23    # Query (ret bool)
+                                                # (1) object_ID, (2) grasp option, and/or (3)  grasp test parameters; 
+
+###                               
+
+#goal:
+int32 action_code                               # See codes above (i.e. MOVE_TO_WAITING_POSE, GRAB_OBJECT, DROPOFF_OBJECT)
+int32 object_id
+int32 grasp_option
+
+# Strategies: approach, grasp, lift, withdraw
+int32 approach_strategy
+int32 lift_object_strategy
+int32 dropoff_strategy
+int32 dropoff_withdraw_strategy
+
+geometry_msgs/PoseStamped object_frame          # wrt system_ref_frame or tf to this frame available
+float64                   speed_factor          # default 1.0
+float64[]                 gripper_test_params
+
+---
+
+#result definitions: response codes
+
+int32 SUCCESS                               = 0
+int32 OBJECT_ACQUIRED                       = 0
+
+int32 FAILED_CANNOT_REACH                   = 1
+int32 FAILED_CANNOT_APPROACH                = 2
+int32 FAILED_CANNOT_REACH_GRASP_POSE        = 3
+int32 FAILED_CANNOT_REACH_DEPART_POSE       = 4
+int32 FAILED_OBJECT_NOT_IN_GRIPPER          = 5
+int32 FAILED_OBJECT_UNKNOWN                 = 6
+
+int32 OBJECT_GRABBER_BUSY                   = 7
+int32 OBJECT_GRABBER_CANCELLED              = 8
+
+int32 FAILED_CANNOT_REACH_DESIRED_POSE      = 9
+int32 FAILED_CANNOT_MOVE_CARTESIAN_FINE     = 13
+int32 FAILED_CANNOT_MOVE_TO_PRE_POSE        = 14
+
+int32 ACTION_CODE_UNKNOWN                   = 15
+
+int32 GRIPPER_IS_OPEN                       = 16
+int32 GRIPPER_IS_CLOSED                     = 17
+int32 GRIPPER_FAILURE                       = 18
+int32 PENDING                               = 19
+int32 OBJECT_DROPPED_OFF                    = 20
+int32 NO_KNOWN_GRASP_OPTIONS_THIS_GRIPPER_AND_OBJECT = 21
+
+int32 return_code
+float64 computed_move_time
+#geometry_msgs/PoseStamped des_flange_pose_stamped_wrt_torso
+
+---
+
+#feedback: optional; 
+
+int32 fdbk
