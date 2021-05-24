@@ -27,7 +27,7 @@ So far, you have completed all the prerequisite preparations
 Run cmd to grab coke can from side
 Before running cmd,please 
 ```
-souce ./devel/setup.bash
+source ./devel/setup.bash
 ```
 1st cmd:  Start an empty gazebo world
 ```
